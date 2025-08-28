@@ -18,4 +18,4 @@ This project shows an example of a job board where a user can filter out using t
 #### Hybrid
 ![Hybrid](assets/images/hybrid.png)
 
-To view and test the live example please click [here](https://andrewh1188.github.io/XXXXXXXXXXXXXXX)
+To view and test the live example please click [here](https://andrewh1188.github.io/Job-Board-Widget/)
