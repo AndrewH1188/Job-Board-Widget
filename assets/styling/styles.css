@@ -76,9 +76,6 @@ header {
   position: relative;
 }
 
-.tab-content {
-  display: none;
-}
 .tab-content--active {
   display: flex;
   flex-direction: column;
@@ -174,6 +171,27 @@ header {
   gap: 1rem;
   width: 100%;
 }
+.job__bottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 0.5rem;
+  width: 100%;
+}
+.job__applicants {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--text);
+}
+.job__applicant {
+  height: 1.75rem;
+  width: 1.75rem;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border: 1px solid var(--primary-transparent);
+}
 .job__name {
   font-weight: 700;
   display: flex;
@@ -193,4 +211,9 @@ header {
   gap: 0.25rem;
   font-size: 1rem;
   color: var(--text);
+}
+.job__bookmark {
+  margin-left: auto;
+  background: none;
+  border: none;
 }/*# sourceMappingURL=styles.css.map */

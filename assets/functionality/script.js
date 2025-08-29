@@ -3,7 +3,7 @@ const allTabs = document.querySelectorAll(".tab-content");
 
 allLinks.forEach((elem) => {
     elem.addEventListener("click", function () {
-        const linkID = elem.id;
+        const linkId = elem.id;
         const hrefLinkClick = elem.href;
 
         allLinks.forEach((link) => {
@@ -15,7 +15,7 @@ allLinks.forEach((elem) => {
         });
 
         allTabs.forEach((tab) => {
-            if (tab.id.includes(linkID)) {
+            if (tab.id.includes(linkId)) {
                 tab.classList.add("tab-content--active");
                 // generate content for tab
                 generateTabItems(elem, tab);
@@ -90,3 +90,71 @@ const filter = {
     ["hybrid"]: (record) =>
         record.type.includes("hybrid"),
 };
+
+const generateTabItems = (elem, tabContent) => {
+    const filterName = elem.name;
+    const filterFunction = filter[filterName];
+
+    const mappedRecords = tabRecords.filter(filterFunction).map (
+        ({ company, ...record }) => {
+            return DOMPurify.sanitize(
+                `<div class="job">
+                    <div class="job__main">
+                        <div class="job__company">
+                            <img src="${company.src}" class="job__avatar
+                            job__avatar- -${company.name}"
+                            alt="Profile"
+                            >
+                        </div>
+                        <button type="button" class="job__bookmark">
+                            full svg
+                        </button>
+                    <div class="job__company">
+                        ${company.name}
+                        <div class="job__location">
+                            <i class="fa-solid fa-location-dot"></i>
+                            ${record.location}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="job__bottom">
+                        <div class="job__applicants">
+                            ${record.applicants.map((applicant) => {
+                                return (
+                                `<img src="assets/images/users/${applicant}.jpg"
+                                alt="${applicant.name}" class="job__applicant">`
+                                )
+                            }).join("")}
+                            +${record.applicationsCount} applicants
+                        </div>
+                        <div class="job__salary">${record.salary}</div>
+                    </div>
+                </div>`
+            );
+        });
+        tabContent.innerHTML = mappedRecords.join("");
+};
+
+//? handle proper selection for initial load
+const currentHash = window.location.hash;
+
+let activeLink = document.querySelector(`.tabs a`);
+
+if (currentHash) {
+    const visibleHash = document.getElementById(
+        `${currentHash}`
+    );
+
+    if (visibleHash) {
+        activeLink = visibleHash;
+    }
+}
+
+const activeTab = document.querySelector(
+    `#${activeLink.id}-content`
+);
+
+activeLink.classList.toggle("active");
+activeTab.classList.toggle("tab-content--active");
+
+generateTabItems(activeLink, activeTab);
